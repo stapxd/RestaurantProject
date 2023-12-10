@@ -1,0 +1,37 @@
+{% extends 'includes/includeMain.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block cssStyles %}
+    <link rel="stylesheet" href="{% static 'main/css/mainIndex.css' %}">
+    <link rel="stylesheet" href="{% static 'includes/css/header.css' %}">
+{% endblock %}
+
+
+{% block mainContent %}
+
+    {% include 'includes/includeHeader.html' %}
+
+    <div class="mainBlock">
+
+        <div>
+            <h2>Ми забезпечуємо високу кухню: </h2>
+            <img src="{% static 'main/images/course.jpg' %}">
+        </div>
+
+        <hr>
+
+        <div>
+            <h2>Наш інтер'єр: </h2>
+            <img src="{% static 'main/images/interier.jpg' %}">
+        </div>
+
+    </div>
+
+
+{% endblock %}
+

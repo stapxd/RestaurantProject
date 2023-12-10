@@ -1,0 +1,21 @@
+.mainBlock {
+
+    margin: 0px auto;
+    padding: 15px;
+    width: 80%;
+    height: fit-content;
+
+    display: flex;
+
+    flex-flow: column;
+    gap: 10px;
+    align-items: center;
+
+}
+
+.mainBlock div {
+
+    width: 65%;
+    height: fit-content;
+
+}
