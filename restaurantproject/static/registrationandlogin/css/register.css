@@ -1,0 +1,55 @@
+.mainBlock {
+
+    margin: 0px auto;
+    padding: 15px;
+    width: 80%;
+    height: fit-content;
+
+    display: flex;
+
+    flex-flow: column;
+    gap: 10px;
+    align-items: center;
+
+}
+
+.mainBlock hr {
+    width: 60%;
+    border: none;
+    border-top: 3px double #333;
+}
+
+.mainBlock div {
+    margin: 0;
+    padding: 10px;
+}
+
+.mainBlock div > form{
+    margin: 0;
+    padding: 15px;
+
+    outline: 2px solid #a1cb99;
+    border-radius: 5px;
+}
+
+.mainBlock div > form > input[type="submit"]{
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 0;
+
+    font-size: 20px;
+
+
+    height: 35px;
+    width: 120px;
+
+
+}
+
+.mainBlock div h1{
+    margin: 0;
+    padding: 0;
+
+}
+
+

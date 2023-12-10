@@ -3,7 +3,7 @@
 {% load static %}
 
 <div class="headerWrap">
-        <img src="{% static 'includes/images/round-table.png'%}">
+    <img src="{% static 'includes/images/round-table.png'%}">
 
     <div>
         <ul>
@@ -12,6 +12,22 @@
             <a href="{% url 'about' %}"><li>Про нас</li></a>
         </ul>
     </div>
+
+
+    {% if user.is_authenticated %}
+    <div>
+        <ul>
+            <a href="{% url 'logout' %}"><li>Вийти</li></a>
+        </ul>
+    </div>
+    {% else %}
+    <div>
+        <ul>
+            <a href="{% url 'register' %}"><li>Реєстрація</li></a> |
+            <a href="{% url 'login' %}"><li>Логін</li></a>
+        </ul>
+    </div>
+    {% endif %}
 
 
 </div>

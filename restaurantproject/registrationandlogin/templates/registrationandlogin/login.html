@@ -1,0 +1,50 @@
+{% extends 'includes/includeMain.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block cssStyles %}
+    <link rel="stylesheet" href="{% static 'registrationandlogin/css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'includes/css/header.css' %}">
+{% endblock %}
+
+
+{% block mainContent %}
+
+    {% include 'includes/includeHeader.html' %}
+
+    <div class="mainBlock">
+
+        {% if messages %}
+            {% for message in messages%}
+                {{ message }}
+            {% endfor %}
+        {% endif %}
+
+        <div>
+            <h1>Логін</h1>
+        </div>
+
+        <hr>
+
+        <div>
+            <form method="post">
+                {% csrf_token %}
+
+                <label>Username:</label><br>
+                <input type="text" name="username"><br>
+                <label>Password:</label><br>
+                <input type="password" name="password"><br>
+
+                <input type="submit" value="Login">
+            </form>
+        </div>
+
+    </div>
+
+
+{% endblock %}
+

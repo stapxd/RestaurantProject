@@ -1,0 +1,44 @@
+{% extends 'includes/includeMain.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block cssStyles %}
+    <link rel="stylesheet" href="{% static 'registrationandlogin/css/register.css' %}">
+    <link rel="stylesheet" href="{% static 'includes/css/header.css' %}">
+{% endblock %}
+
+
+{% block mainContent %}
+
+    {% include 'includes/includeHeader.html' %}
+
+    <div class="mainBlock">
+
+        {% if form.errors %}
+            <p>Виникла помилка. Перевірте правильність введених даних</p>
+        {% endif %}
+
+        <div>
+            <h1>REGISTRATION</h1>
+        </div>
+
+        <div>
+            <form method="post">
+                {% csrf_token %}
+
+                {{ form.as_p }}
+
+                <br>
+                <input type="submit" value="Register">
+            </form>
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
