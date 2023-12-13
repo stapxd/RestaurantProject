@@ -1,0 +1,55 @@
+{% extends 'includes/includeMain.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block cssStyles %}
+    <link rel="stylesheet" href="{% static 'registrationandlogin/css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'includes/css/header.css' %}">
+{% endblock %}
+
+
+{% block mainContent %}
+
+    {% include 'includes/includeHeader.html' %}
+
+    <div class="mainBlock">
+
+        {% if user.is_authenticated %}
+
+            <form method="post">
+                {% csrf_token %}
+
+                {{ form.as_p }}
+                <input type="submit" value="submit">
+
+
+                {% if fDate != None %}
+                    {% for table, isDisabledItem in combined_list %}
+                        {% if isDisabledItem %}
+                            <input type="checkbox" name="selected_items" id="{{ table.table_number }}" value="{{ table.table_number }}" disabled>
+                            <label for="{{ table.table_number }}">{{ table.table_number }}</label><br>
+                        {% else %}
+                            <input type="checkbox" name="selected_items" id="{{ table.table_number }}" value="{{ table.table_number }}">
+                            <label for="{{ table.table_number }}">{{ table.table_number }}</label><br>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+            </form>
+
+        {% else %}
+            <div>
+                <h1>Ви не можете замовити стіл. Авторизуйтесь для замовлення.</h1>
+            </div>
+        {% endif %}
+
+
+    </div>
+
+
+{% endblock %}
+

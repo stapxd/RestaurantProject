@@ -17,26 +17,31 @@
     {% include 'includes/includeHeader.html' %}
 
     <div class="mainBlock">
+        {% if user.is_authenticated %}
+            <div>
+                <h1>Ви вже залогінені на сайті</h1>
+            </div>
+        {% else %}
 
-        {% if form.errors %}
-            <p>Виникла помилка. Перевірте правильність введених даних</p>
+<!--            {% if form.errors %}-->
+<!--                <p>Виникла помилка. Перевірте правильність введених даних</p>-->
+<!--            {% endif %}-->
+
+            <div>
+                <h1>REGISTRATION</h1>
+            </div>
+
+            <div>
+                <form method="post">
+                    {% csrf_token %}
+
+                    {{ form.as_p }}
+
+                    <br>
+                    <input type="submit" value="Register">
+                </form>
+            </div>
         {% endif %}
-
-        <div>
-            <h1>REGISTRATION</h1>
-        </div>
-
-        <div>
-            <form method="post">
-                {% csrf_token %}
-
-                {{ form.as_p }}
-
-                <br>
-                <input type="submit" value="Register">
-            </form>
-        </div>
-
     </div>
 
 
