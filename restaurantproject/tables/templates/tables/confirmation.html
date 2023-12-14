@@ -1,0 +1,47 @@
+{% extends 'includes/includeMain.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block cssStyles %}
+    <link rel="stylesheet" href="{% static 'registrationandlogin/css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'includes/css/header.css' %}">
+{% endblock %}
+
+
+{% block mainContent %}
+
+    {% include 'includes/includeHeader.html' %}
+
+    <div class="mainBlock">
+
+        {% if user.is_authenticated %}
+            {% if messages %}
+                {% for message in messages%}
+                    {{ message }}
+                {% endfor %}
+            {% endif %}
+            <br>
+            <div>{{ data.date }}</div>
+            <div>{{ data.selected_tables }}</div>
+
+            <form method="post">
+                {% csrf_token %}
+                <input type="submit" name="confirm" value="submit">
+                <input type="submit" name="confirm" value="back">
+            </form>
+
+        {% else %}
+            <div>
+                <h1>Ви не можете замовити стіл. Авторизуйтесь для замовлення.</h1>
+            </div>
+        {% endif %}
+
+    </div>
+
+
+{% endblock %}
+

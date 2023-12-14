@@ -23,6 +23,7 @@ class Tables(models.Model):
 class Tables_orders(models.Model):
     date = models.DateField(verbose_name='Дата')
     table_number = models.PositiveIntegerField(verbose_name='Номер столика')
+    user = models.CharField(max_length=250, verbose_name='Пользователь')
 
     def __str__(self):
         return str(self.date)
