@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block cssStyles %}
-    <link rel="stylesheet" href="{% static 'registrationandlogin/css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'tables/css/confirmation.css' %}">
     <link rel="stylesheet" href="{% static 'includes/css/header.css' %}">
 {% endblock %}
 
@@ -24,15 +24,29 @@
                     {{ message }}
                 {% endfor %}
             {% endif %}
-            <br>
-            <div>{{ data.date }}</div>
-            <div>{{ data.selected_tables }}</div>
+            <div>
+                <p>Ваше замовлення:</p>
+                <br>
+                <div>Дата: {{ data.date }}</div>
 
-            <form method="post">
-                {% csrf_token %}
-                <input type="submit" name="confirm" value="submit">
-                <input type="submit" name="confirm" value="back">
-            </form>
+                <p>Обрані столики:
+                <br>
+
+                {% for selected in data.selected_tables %}
+                    {% if forloop.last %}
+                        {{ selected }}
+                    {% else %}
+                        {{ selected }},
+                    {% endif %}
+                {% endfor %}
+                </p>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="submit" name="confirm" value="Замовити">
+                    <input type="submit" name="confirm" value="Назад">
+                </form>
+            </div>
 
         {% else %}
             <div>

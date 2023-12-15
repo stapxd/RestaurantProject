@@ -1,0 +1,105 @@
+.mainBlock {
+
+    margin: 0px auto;
+    padding: 15px;
+    width: 80%;
+    height: fit-content;
+
+    display: flex;
+
+    flex-flow: column;
+    gap: 10px;
+    align-items: center;
+
+
+}
+
+.mainBlock > div {
+    margin: 0;
+    padding: 10px;
+
+
+}
+
+.mainBlock div > form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+
+    margin: 0;
+    padding: 15px;
+}
+
+.mainBlock div > form > div{
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: row;
+
+    margin: 0;
+    padding: 15px;
+}
+
+.mainBlock div > form > div > input[type="checkbox"]{
+    opacity: 0;
+}
+
+.mainBlock div > form > div > input[type="checkbox"] + label{
+
+    width:150px;
+    height: 150px;
+
+    background-color: #af6834;
+    border: 1px solid black;
+
+    text-align: center;
+}
+
+.mainBlock div > form > div > input[type="checkbox"] + label > p{
+
+    margin: 0;
+    margin-top: 10px;
+    padding: 0;
+
+    font-size: 16px;
+    vertical-align: middle;
+
+    user-select: none;
+
+}
+
+.mainBlock div > form > div > input[type="checkbox"]:checked + label, .mainBlock div > form > div > input[type="checkbox"]:disabled + label{
+
+    background-color: #54321a;
+
+}
+
+.label_oval{
+    border-radius: 50%;
+}
+
+.label_square{
+    border-radius: 4px;
+}
+
+.mainBlock div > form > input[type="submit"]{
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 0;
+
+    font-size: 20px;
+
+
+    height: 35px;
+    width: 100px;
+
+}
+
+.mainBlock div h1{
+    margin: 0;
+    padding: 0;
+
+}
+
+

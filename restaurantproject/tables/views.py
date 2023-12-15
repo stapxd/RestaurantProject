@@ -73,6 +73,9 @@ def index(request):
 
 def confirmation(request):
 
+    if not request.session:
+        return redirect('home')
+
     data = request.session.get('data', None)
 
     username = request.user.username
@@ -83,7 +86,7 @@ def confirmation(request):
         print(confirmation)
         print(type(confirmation))
 
-        if confirmation == 'submit':
+        if confirmation == 'Замовити':
 
             existing_order = False
 
@@ -103,7 +106,7 @@ def confirmation(request):
 
                 return redirect('home')
 
-        elif confirmation == 'back':
+        elif confirmation == 'Назад':
             return redirect('booking')
 
         # send_mail(

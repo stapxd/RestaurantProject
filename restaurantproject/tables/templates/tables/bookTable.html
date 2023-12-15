@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block cssStyles %}
-    <link rel="stylesheet" href="{% static 'registrationandlogin/css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'tables/css/bookTable.css' %}">
     <link rel="stylesheet" href="{% static 'includes/css/header.css' %}">
 {% endblock %}
 
@@ -18,27 +18,47 @@
 
     <div class="mainBlock">
 
+        <div>
         {% if user.is_authenticated %}
 
             <form method="post">
                 {% csrf_token %}
-
+                <input type="submit" value="Обрати">
                 {{ form.as_p }}
-                <input type="submit" value="submit">
 
-
+                <div class="tables">
                 {% if fDate != None %}
                     {% for table, isDisabledItem in combined_list %}
                         {% if isDisabledItem %}
                             <input type="checkbox" name="selected_items" id="{{ table.table_number }}" value="{{ table.table_number }}" disabled>
-                            <label for="{{ table.table_number }}">{{ table.table_number }}</label><br>
+                            {% if table.table_shape == 'Овальний' %}
+                                <label for="{{ table.table_number }}" class="label_oval">
+                                    <p>#{{ table.table_number }}</p>
+                                    <p>Кількість місць: {{ table.number_of_seats }}</p>
+                                </label><br>
+                            {% else %}
+                                <label for="{{ table.table_number }}" class="label_square">
+                                    <p>#{{ table.table_number }}</p>
+                                    <p>Кількість місць: {{ table.number_of_seats }}</p>
+                                </label><br>
+                            {% endif %}
                         {% else %}
                             <input type="checkbox" name="selected_items" id="{{ table.table_number }}" value="{{ table.table_number }}">
-                            <label for="{{ table.table_number }}">{{ table.table_number }}</label><br>
+                            {% if table.table_shape == 'Овальний' %}
+                                <label for="{{ table.table_number }}" class="label_oval">
+                                    <p>#{{ table.table_number }}</p>
+                                    <p>Кількість місць: {{ table.number_of_seats }}</p>
+                                </label><br>
+                            {% else %}
+                                <label for="{{ table.table_number }}" class="label_square">
+                                    <p>#{{ table.table_number }}</p>
+                                    <p>Кількість місць: {{ table.number_of_seats }}</p>
+                                </label><br>
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
                 {% endif %}
-
+                </div>
             </form>
 
         {% else %}
@@ -46,7 +66,7 @@
                 <h1>Ви не можете замовити стіл. Авторизуйтесь для замовлення.</h1>
             </div>
         {% endif %}
-
+        </div>
 
     </div>
 

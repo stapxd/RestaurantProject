@@ -3,7 +3,6 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import RegisterUserForm
 from django.contrib import messages
 
-
 # Create your views here.
 def loginUser(request):
     title = 'Логін'
