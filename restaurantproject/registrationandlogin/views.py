@@ -34,6 +34,8 @@ def registerUser(request):
             form.save()
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
+            print(form.cleaned_data['email'])
+            print(form.cleaned_data['username'])
             user = authenticate(username=username, password=password)
             login(request, user)
             return redirect('home')

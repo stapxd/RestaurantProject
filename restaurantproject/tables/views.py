@@ -3,10 +3,9 @@ from .forms import OrderForm
 from .models import Tables_orders, Tables
 from django.contrib import messages
 from django.utils import timezone
-from dateutil import parser
-
 from datetime import datetime
 from django.core.mail import send_mail
+from django.conf import settings
 
 
 # Create your views here.
@@ -26,8 +25,6 @@ def index(request):
         if form.is_valid():
             # selected_tables = request.POST.getlist('selected_items')
             selected_tables = list(map(int, request.POST.getlist('selected_items')))
-            print(len(selected_tables))
-            print(selected_tables)
             # table_number = form.cleaned_data['table_number']
             fDate = form.cleaned_data['date']
 
@@ -49,7 +46,6 @@ def index(request):
                 except Tables_orders.DoesNotExist:
                     isDisabled.append(False)
 
-            print(isDisabled)
             combined_list = zip(tables, isDisabled)
 
 
@@ -69,6 +65,7 @@ def index(request):
             #     # reservation.user = request.user
             #     # reservation.save()
             #     # return render(request, 'reservation/success.html', {'message': 'Reservation successful!'})
+
     else:
         form = OrderForm()
 
@@ -82,7 +79,6 @@ def confirmation(request):
     try:
         data = request.session.get('data', None)
     except AttributeError:
-        print("sdgjsgd")
         return redirect('error')
 
     username = request.user.username
@@ -90,8 +86,6 @@ def confirmation(request):
     if request.method == 'POST':
 
         confirmation = request.POST.get('confirm')
-        print(confirmation)
-        print(type(confirmation))
 
         if confirmation == 'Замовити':
 
@@ -112,6 +106,20 @@ def confirmation(request):
                 messages.success(request, ('Якісь столики з ваших вже зарезервовані. Спробуйте ще раз'))
 
             else:
+
+                message = "На дату " + data.get('date') + " \nВи замовили столик/и №: "
+                selected = list(map(str, data.get('selected_tables')))
+
+                message += ", ".join(selected)
+
+                send_mail(
+                    "Замовлення столика/ів",
+                    message,
+                    "foxionhk@gmail.com",
+                    [request.user.email],
+                    fail_silently=False,
+                )
+
                 for selected in data.get('selected_tables'):
                     one_order = Tables_orders(date=data.get('date'), table_number=selected, user=username)
                     one_order.save()
@@ -120,14 +128,6 @@ def confirmation(request):
 
         elif confirmation == 'Назад':
             return redirect('booking')
-
-        # send_mail(
-        #     "Subject here",
-        #     "Here is the message.",
-        #     "foxionhk@gmail.com",
-        #     ["ptrukenpavel@gmail.com"],
-        #     fail_silently=False,
-        # )
 
     return render(request, 'tables/confirmation.html', locals())
 
@@ -146,9 +146,9 @@ def profile(request):
             Tables_orders.objects.filter(user=username, date=date, table_number=table).delete()
 
     for item in Tables_orders.objects.filter(user=username, date__gte=timezone.now().date()):
-        print(item.date.isoformat(), '\n')
+
         if item.date.isoformat() in users_table_orders:
-            print('Yes', '\n')
+
             users_table_orders[item.date.isoformat()].append(item.table_number)
 
         else:
@@ -157,7 +157,6 @@ def profile(request):
             users_table_orders[item.date.isoformat()].append(item.table_number)
 
 
-    print(users_table_orders)
 
     combined_list = zip(users_table_orders, ids)
 
