@@ -1,0 +1,74 @@
+{% extends 'includes/includeMain.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block cssStyles %}
+    <link rel="stylesheet" href="{% static 'tables/css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'includes/css/header.css' %}">
+{% endblock %}
+
+
+{% block mainContent %}
+
+    {% include 'includes/includeHeader.html' %}
+
+<div class="mainBlock">
+    {% if user.is_authenticated %}
+
+        <div>
+            Аккаунт : {{ username }}
+        </div>
+
+        <hr>
+
+        <div class="wrap">
+        {% for key, value in users_table_orders.items %}
+            <div>
+                <p>
+                Дата : {{ key }}<br>
+                </p>
+
+                <p>
+                Столики :
+                {% for val in value %}
+                    {% if forloop.last %}
+                         {{ val }}
+                    {% else %}
+                        {{ val }},
+                    {% endif %}
+                {% endfor %}
+                </p>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="date" value="{{key}}">
+                    {% for val in value %}
+                        <input type="hidden" name="table" value="{{val}}">
+                    {% endfor %}
+
+                    <input type="submit" value="Видалити">
+                </form>
+
+            </div>
+        {% endfor %}
+        </div>
+
+    {% else %}
+
+        <div>
+            <div>
+                Аккаунт : Ви не залогінені на сайті
+            </div>
+
+        </div>
+
+
+    {% endif %}
+</div>
+
+{% endblock %}
+

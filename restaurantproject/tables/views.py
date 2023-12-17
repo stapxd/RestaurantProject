@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from .forms import OrderForm
 from .models import Tables_orders, Tables
 from django.contrib import messages
+from django.utils import timezone
+from dateutil import parser
+
+from datetime import datetime
 from django.core.mail import send_mail
 
 
@@ -73,10 +77,13 @@ def index(request):
 
 def confirmation(request):
 
-    if not request.session:
-        return redirect('home')
-
     data = request.session.get('data', None)
+
+    try:
+        data = request.session.get('data', None)
+    except AttributeError:
+        print("sdgjsgd")
+        return redirect('error')
 
     username = request.user.username
 
@@ -89,6 +96,11 @@ def confirmation(request):
         if confirmation == 'Замовити':
 
             existing_order = False
+
+            try:
+                result = data.get('selected_tables')
+            except AttributeError:
+                return redirect('error')
 
             for selected in data.get('selected_tables'):
                 existing_reservation = Tables_orders.objects.filter(date=data.get('date'), table_number=selected).exists()
@@ -118,3 +130,35 @@ def confirmation(request):
         # )
 
     return render(request, 'tables/confirmation.html', locals())
+
+def profile(request):
+
+    title = 'Профіль'
+    username = request.user.username
+    users_table_orders = {}
+    ids = []
+
+    if request.method == 'POST':
+        date = request.POST.get('date')
+        tables = list(map(int, request.POST.getlist('table')))
+
+        for table in tables:
+            Tables_orders.objects.filter(user=username, date=date, table_number=table).delete()
+
+    for item in Tables_orders.objects.filter(user=username, date__gte=timezone.now().date()):
+        print(item.date.isoformat(), '\n')
+        if item.date.isoformat() in users_table_orders:
+            print('Yes', '\n')
+            users_table_orders[item.date.isoformat()].append(item.table_number)
+
+        else:
+            ids.append(item.id)
+            users_table_orders[item.date.isoformat()] = []
+            users_table_orders[item.date.isoformat()].append(item.table_number)
+
+
+    print(users_table_orders)
+
+    combined_list = zip(users_table_orders, ids)
+
+    return render(request, 'tables/profile.html', locals())

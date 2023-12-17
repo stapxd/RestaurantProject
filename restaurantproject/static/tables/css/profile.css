@@ -1,0 +1,58 @@
+.mainBlock {
+
+    margin: 0px auto;
+    padding: 15px;
+    width: 80%;
+    height: fit-content;
+
+    display: flex;
+
+    flex-flow: column;
+    gap: 10px;
+    align-items: center;
+
+
+}
+
+.mainBlock > div:nth-child(1) {
+    text-align: right;
+    border: none;
+
+    font-weight: bold;
+
+}
+
+.wrap {
+
+    width: 30%;
+    height: fit-content;
+
+    margin: 0;
+    padding: 5px;
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: column;
+    gap: 10px;
+
+
+}
+
+.wrap > div {
+
+    width: 100%;
+
+    padding: 5px;
+
+    border: 1px solid #000;
+    border-radius: 3px;
+
+}
+
+.mainBlock hr {
+    width: 80%;
+    border: none;
+    border-top: 3px double #333;
+}
+
+

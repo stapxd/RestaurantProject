@@ -12,3 +12,9 @@ def about(request):
 
     title = 'Про нас'
     return render(request, 'main/about.html', locals())
+
+def error(request):
+
+    title = 'Error'
+    return render(request, 'main/error.html', locals())
+

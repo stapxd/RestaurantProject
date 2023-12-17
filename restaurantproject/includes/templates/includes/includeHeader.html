@@ -17,6 +17,7 @@
     {% if user.is_authenticated %}
     <div>
         <ul>
+            <a href="{% url 'profile' %}"><li>Профіль</li></a> |
             <a href="{% url 'logout' %}"><li>Вийти</li></a>
         </ul>
     </div>
